@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<link rel="stylesheet" href="style.css">
+<head>
+<meta charset="UTF-8">
+<title>Estadísticas de Netflix hasta el 2021</title>
+<style>
+  .chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .chart {
+    width: 30%;
+    margin: 10px;
+    text-align: center;
+  } 
+  .chart-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .comment {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<h1>Estadísticas de Netflix hasta el 2021</h1>
+
+<div class="chart-container">
+  <!-- Gráfico de proporción por países -->
+  <div class="chart" id="chart-paises">
+    <div class="chart-title">Proporción por Países</div>
+    <img src="../carpeta_de_gráficos/Gráfico de Barras.svg" alt="Descripción del gráfico" class="svg-grafico">
+  </div>
+
+  <!-- Gráfico de proporción entre películas y series -->
+  <div class="chart" id="chart-peliculas-series">
+    <div class="chart-title">Proporción entre Películas y Series</div>
+    <img src="../carpeta_de_gráficos/Conteo de Tipos.svg" alt="Descripción del gráfico" class="svg-grafico">
+  </div>
+
+  <!-- Gráfico de películas más largas del catálogo -->
+  <div class="chart" id="chart-peliculas-largas">
+    <div class="chart-title">Películas Más Largas del Catálogo</div>
+    <img src="../carpeta_de_gráficos/Top 10 Películas por Duración.svg" alt="Descripción del gráfico" class="svg-grafico">
+  </div>
+</div>
+
+<div class="comment">
+  Graficos Netflix 2021
+</div>
+
+<script>
+// Aquí puedes agregar el código JavaScript para generar los gráficos utilizando una librería como Chart.js
+</script>
+
+</body>
+</html>

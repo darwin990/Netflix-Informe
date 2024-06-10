@@ -57,13 +57,12 @@ extractDuration :: String -> Int
 extractDuration s = read $ filter isDigit s
 
 -- Función para generar el diagrama circular con los 10 países más frecuentes (Despues de una hora de ejecución no soltó nada).
-generatePieChart :: [(String, Int)] -> IO ()
-generatePieChart top10Countries = toFile def "country_pie_chart.svg" $ do
-    pie_title .= "Top 10 Países Más Frecuentes"
-    pie_plot . pie_data .= map (\(country, count) -> PieItem country (fromIntegral count) 0.0) top10Countries
-    pie_plot . pie_colors .= cycle [opaque blue, opaque green, opaque red, opaque yellow]
-    pie_plot . pie_start_angle .= 180
-
+-- Función para generar gráficos de barras SVG
+generarGrafico :: String -> FilePath -> [(String, Int)] -> IO ()
+generarGrafico titulo carpeta datos = toFile def (carpeta ++ "/" ++ titulo ++ ".svg") $ do
+    layout_title .= titulo
+    setColors [opaque blue, opaque red, opaque green, opaque yellow, opaque orange, opaque violet]
+    plot $ fmap plotBars $ bars (map fst datos) (addIndexes $ map ((:[]).snd) datos)
 
 main :: IO ()
 main = do
@@ -81,11 +80,13 @@ main = do
 
       -- Contamos los tipos de shows.
       let typeCounts = V.foldl' (\acc showInfo -> Map.insertWith (+) (type' showInfo) 1 acc) Map.empty v
+      let typeCountsList = sortBy (comparing (negate . snd)) . Map.toList $ typeCounts
 
       -- Filtramos y ordenamos las películas por duración.
       let movies = V.filter (\showInfo -> type' showInfo == "Movie") v
       let sortedMovies = sortBy (comparing (negate . extractDuration . duration)) (V.toList movies) -- Ordenamos segun las duraciones más altas
       let top10Movies = take 10 sortedMovies -- Tomamos los primeros 10 resultados
+      let top10MoviesDurations = map (\showInfo -> (title showInfo, extractDuration . duration $ showInfo)) top10Movies
 
       -- Imprimimos el resultado de los 10 países más frecuentes.
       putStrLn "Top 10 países más frecuentes:"
@@ -99,4 +100,12 @@ main = do
       -- Imprimimos el resultado de cuantas peliculas y series hay.
       putStrLn "\nTop 10 películas por duración:"
       mapM_ (putStrLn . (\showInfo -> title showInfo ++ " - " ++ duration showInfo)) top10Movies
-      
+
+      --Generamos un grafico de barras para las listas:
+      generarGrafico "Gráfico de Barras" "carpeta_de_gráficos" top10Countries
+
+      -- Generamos un gráfico de barras para el conteo de tipos.
+      generarGrafico "Conteo de Tipos" "carpeta_de_gráficos" typeCountsList
+
+      -- Generamos un gráfico de barras para el top 10 de películas por duración.
+      generarGrafico "Top 10 Películas por Duración" "carpeta_de_gráficos" top10MoviesDurations

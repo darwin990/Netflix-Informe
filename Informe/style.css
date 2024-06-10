@@ -1,0 +1,70 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  h1 {
+    background-color: red; /* Fondo rojo */
+    color: white; /* Letra blanca */
+    padding: 10px 0; /* Espaciado interno vertical */
+    margin: 0; /* Elimina el margen por defecto */
+    text-align: center; /* Centra el texto */
+  }  
+
+    /* En una hoja de estilos CSS */
+  img.svg-grafico {
+    width: 200px;
+    height: 200px;
+  }
+      
+  
+  /* Contenedor de los gráficos */
+  .chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  /* Estilo individual de cada gráfico */
+  .chart {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 40px);
+    margin: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .chart-title {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  /* Comentario debajo de los gráficos */
+  .comment {
+    text-align: center;
+    color: #999;
+    margin-top: 40px;
+    font-size: 16px;
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 768px) {
+    .chart-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .chart {
+      width: 80%;
+      margin: 20px 0;
+    }
+  }
+  
