@@ -52,11 +52,9 @@ instance FromNamedRecord ShowInfo where
                                  <*> r .: "type"
 
 -- Función para extraer el valor numérico de la duración.
--- Función para extraer el valor numérico de la duración.
 extractDuration :: String -> Int
 extractDuration s = read $ filter isDigit s
 
--- Función para generar el diagrama circular con los 10 países más frecuentes (Despues de una hora de ejecución no soltó nada).
 -- Función para generar gráficos de barras SVG
 generarGrafico :: String -> FilePath -> [(String, Int)] -> IO ()
 generarGrafico titulo carpeta datos = toFile def (carpeta ++ "/" ++ titulo ++ ".svg") $ do
@@ -97,7 +95,7 @@ main = do
       putStrLn "\nConteo de tipos:" 
       mapM_ (putStrLn . (\(k, v) -> k ++ ": " ++ show v)) (Map.toList typeCounts)
 
-      -- Imprimimos el resultado de cuantas peliculas y series hay.
+      -- Imprimimos el resultado de las 10 peliculas mas largas hay.
       putStrLn "\nTop 10 películas por duración:"
       mapM_ (putStrLn . (\showInfo -> title showInfo ++ " - " ++ duration showInfo)) top10Movies
 
@@ -109,3 +107,5 @@ main = do
 
       -- Generamos un gráfico de barras para el top 10 de películas por duración.
       generarGrafico "Top 10 Películas por Duración" "carpeta_de_gráficos" top10MoviesDurations
+
+      -- Usamos "cabal v2-run" para las pruebas y fue el que mejor nos funciono.
